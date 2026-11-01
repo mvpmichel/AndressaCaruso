@@ -1,0 +1,52 @@
+<script setup>
+import { useId } from 'vue';
+
+// Cada instância precisa de ids próprios para gradientes, filtro e recorte.
+// Esta é a versão reforçada para tamanhos pequenos (header, rodapé);
+// a versão detalhada fica em logo/final/andressa-caruso-icone.svg.
+const id = useId();
+</script>
+
+<template>
+  <svg viewBox="0 0 120 120" fill="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient :id="`${id}-fundo`" x1="0" y1="0" x2="120" y2="120" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#140E17" />
+        <stop offset="0.55" stop-color="#1E1624" />
+        <stop offset="1" stop-color="#3A1A2C" />
+      </linearGradient>
+      <radialGradient :id="`${id}-brilho`" cx="28" cy="16" r="72" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#fff" stop-opacity="0.16" />
+        <stop offset="1" stop-color="#fff" stop-opacity="0" />
+      </radialGradient>
+      <linearGradient :id="`${id}-feixe`" x1="0" y1="0" x2="54" y2="0" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#FF1F4B" stop-opacity="0.35" />
+        <stop offset="0.35" stop-color="#FF1F4B" />
+        <stop offset="1" stop-color="#FF6A86" />
+      </linearGradient>
+      <filter :id="`${id}-glow`" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="3.2" />
+      </filter>
+      <clipPath :id="`${id}-placa`">
+        <rect width="120" height="120" rx="30" />
+      </clipPath>
+    </defs>
+
+    <!-- Placa escura -->
+    <rect width="120" height="120" rx="30" :fill="`url(#${id}-fundo)`" />
+    <rect width="120" height="120" rx="30" :fill="`url(#${id}-brilho)`" />
+
+    <!-- A e C -->
+    <path d="M22 90 L40 32 L58 90" stroke="#F3F1F4" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M98.14 46.86 A20 20 0 1 0 98.14 75.14" stroke="#F3F1F4" stroke-width="7" stroke-linecap="round" />
+
+    <!-- Laser vermelho: entra pela esquerda e vira a barra do A -->
+    <g :clip-path="`url(#${id}-placa)`">
+      <path d="M0 70 L53 70" stroke="#FF1F4B" stroke-width="15" stroke-linecap="round" stroke-opacity="0.75" :filter="`url(#${id}-glow)`" />
+      <path d="M0 70 L53 70" :stroke="`url(#${id}-feixe)`" stroke-width="6.2" stroke-linecap="round" />
+      <circle cx="53" cy="70" r="15" fill="#FF1F4B" fill-opacity="0.7" :filter="`url(#${id}-glow)`" />
+      <circle cx="53" cy="70" r="7.4" fill="#FF3A5E" />
+      <circle cx="53" cy="70" r="3.1" fill="#FFE3EA" />
+    </g>
+  </svg>
+</template>
